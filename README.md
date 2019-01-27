@@ -1,3 +1,13 @@
+### What this
+
+AWS Slack notification on monthly cost using Slack web-hooks
+this bot will report total cost and cost by service
+
+### Install
+
+- clone this repo.
+- run `npm(or yarn) install`.
+
 ### Deploy
 
 ```

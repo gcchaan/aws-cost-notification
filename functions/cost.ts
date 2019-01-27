@@ -54,13 +54,13 @@ export const cost = async function (
     const sts = new STS()
     const getCallerIdentityResponse = await sts.getCallerIdentity().promise()
     const account = getCallerIdentityResponse.Account
-    const formatMessage = `:aws: \`${account}\` のコストの合計とサービス別(top12)\n` +
+    const formatMessage = `:cloud: monthly and by service(top12) in AWS(\`${account}\`) \n` +
       ':calendar: '+
       `${date.subtract(1, 'month').format('YYYY-MM')}: \`$${Math.round(lastMonthTotal)}\`` +
       `(${date.subtract(2, 'month').format('YYYY-MM')}: \`$${Math.round(monthBeforeLastTotal)}\`)`
       const payload = {
         channel: channel,
-        username: 'AWSコスト',
+        username: 'AWS Cost Report',
         icon_emoji: ':money_with_wings:',
         text: formatMessage,
         attachments: [{
@@ -73,7 +73,7 @@ export const cost = async function (
           })).slice(0, 12)
         }],
       }
-      // :は\:にエスケープする必要がある
+      // colon should be escaped
       const options = JSON.stringify(payload).replace(/':'/g, '\'\:\'')
       await axios.post(url!, options)
   } catch (error) {

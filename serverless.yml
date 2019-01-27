@@ -1,4 +1,4 @@
-service: rd-cost-notification
+service: aws-cost-slack-notification
 frameworkVersion: ">=1.0.0 <2.0.0"
 provider:
   name: aws
