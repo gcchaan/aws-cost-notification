@@ -76,6 +76,7 @@ export const cost = async function (
       // colon should be escaped
       const options = JSON.stringify(payload).replace(/':'/g, '\'\:\'')
       await axios.post(url!, options)
+      callback(null, { statusCode: 200 })
   } catch (error) {
     console.error(error)
   }
