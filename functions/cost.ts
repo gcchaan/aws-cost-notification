@@ -1,4 +1,4 @@
-import { ScheduledEvent, Context, Callback } from 'aws-lambda'
+import { ScheduledEvent, Context } from 'aws-lambda'
 import { CostExplorer, STS } from 'aws-sdk'
 import { GetCostAndUsageRequest } from 'aws-sdk/clients/costexplorer'
 import * as DayJS from 'dayjs'
@@ -39,7 +39,7 @@ function previousMonthPeriod(date: DayJS.Dayjs, num: number) {
 export const cost = async function (
     event: ScheduledEvent,
     context: Context,
-    callback: Callback): Promise<void> {
+    _: never): Promise<void> {
   try {
     const costExplorer = new CostExplorer({region: 'us-east-1'})
     const lastMonth = await costExplorer.getCostAndUsage(params(previousMonthPeriod(date, 1))).promise()
@@ -76,9 +76,8 @@ export const cost = async function (
       // colon should be escaped
       const options = JSON.stringify(payload).replace(/':'/g, '\'\:\'')
       await axios.post(url!, options)
-      callback(null, { statusCode: 200 })
+      return
   } catch (error) {
     console.error(error)
   }
 }
-cost(null, null, null)
