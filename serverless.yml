@@ -2,7 +2,7 @@ service: aws-cost-slack-notification
 frameworkVersion: ">=1.0.0 <2.0.0"
 provider:
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'ap-northeast-1'}
   memorySize: 128
